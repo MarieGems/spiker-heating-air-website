@@ -15,7 +15,9 @@
 
 # next.js
 /.next/
-/out/
+# NOT /out/ — cPanel's git deploy just copies files (no npm/build step available),
+# so the built static export has to be committed. Run `npm run build` and commit
+# the resulting out/ before every push that should go live.
 
 # production
 /build

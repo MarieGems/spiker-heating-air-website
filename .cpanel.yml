@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home/marirahg/spikerheating.marieharvey.com/
+    - /bin/cp -R out/* $DEPLOYPATH

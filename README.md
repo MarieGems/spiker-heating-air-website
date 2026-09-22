@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Spiker Heating & Air — Portfolio Concept
 
-## Getting Started
+A full-site rebuild concept for Spiker Heating & Air, a real HVAC company in Wichita, KS
+(hvacwichitaks.com), built as a portfolio piece using the `client-landing-builder` method:
+scrape the real site, extract the real brand, and rebuild it as a premium, conversion-focused
+Next.js site in one session.
 
-First, run the development server:
+**This is an unofficial, unaffiliated concept piece created for demonstration purposes.** It is
+not a live or commissioned Spiker Heating & Air project. All business facts shown — name, phone
+number, address, hours, license number, founding year, service list, and the customer reviews —
+are real and pulled directly from Spiker's own live site and Testimonials page. The hero's
+scroll-driven background photography is stock/bundled footage of a generic AC condenser
+(visibly branded "AEROFLOW," not Spiker's own equipment), not real photos of Spiker's trucks,
+technicians, or job sites.
+
+## What's here
+
+- `/` — the main landing page: scroll-driven hero, an honest comparison section, services,
+  real customer reviews, and a call-to-action
+- `/wichita-ac-repair-guide` — a generic "what to look for in an HVAC company" trust page
+  (no named competitor — see note below)
+- `/tools/repair-or-replace-calculator` — a free, genuinely interactive repair-vs-replace
+  reasoning tool (no signup, no invented cost data)
+- `/how-to/[slug]` — 10 local-intent guides on AC/furnace repair, troubleshooting, and
+  maintenance, built from general, well-established HVAC knowledge
+- `/all-pages` — a site map linking every page above in one place
+
+No real competitor is named or researched anywhere on this site. Where the copy references
+"other HVAC companies," it's describing general industry pain points, the same way the rest of
+the portfolio's concept pieces do — never a specific real business.
+
+## Stack
+
+Next.js 16 (App Router), TypeScript, Tailwind CSS v4, Framer Motion. Statically exported
+(`output: 'export'`) so it deploys the same way as the other marieharvey.com portfolio-concept
+subdomains — plain static files, no Node server required.
+
+## Running it locally
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deploying
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+This repo has **no CI build step** — cPanel's git deploy just copies files, it doesn't run
+`npm install`/`npm run build`. Before pushing anything that should go live:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build   # regenerates out/
+git add out
+git commit -m "Rebuild static export"
+git push
+```
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`.cpanel.yml` copies `out/*` to `/home/marirahg/spikerheating.marieharvey.com/`.

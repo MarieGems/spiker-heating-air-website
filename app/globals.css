@@ -1,26 +1,78 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  /* ── Extracted Brand Colors — Spiker Heating & Air ────── */
+  --color-brand-primary: #ED1C24;        /* wordmark red */
+  --color-brand-primary-light: #F47176;  /* +18% lightness */
+  --color-brand-primary-pale: #FDE4E5;   /* red at ~12% on white */
+  --color-brand-accent: #F8D24B;         /* wordmark gold, "HEATING & AIR" */
+  --color-brand-accent-light: #FBE495;
+
+  /* ── Universal urgent CTA color — emergency call element ONLY.
+     Kept separate from brand-accent (gold) so the emergency pill still
+     screams against the red/black/gold palette instead of blending in. */
+  --color-urgent: #F47721;
+  --color-urgent-light: #F79A5C;
+
+  /* ── Fixed Neutrals (do not change) */
+  --color-ink: #1C1C1E;
+  --color-ink-soft: #3D3D3F;
+  --color-ink-muted: #6B6B6E;
+  --color-warm: #F7F6F2;
+  --color-warm-dark: #EEECE7;
+  --color-border: #E5E4DF;
+
+  /* ── Typography ───────────────── */
+  --font-display: var(--font-outfit);
+  --font-body: var(--font-geist-sans);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: #ffffff;
+  color: #1C1C1E;
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+@keyframes pulse-ring {
+  0%   { transform: scale(1); opacity: 0.8; }
+  80%  { transform: scale(1.8); opacity: 0; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+@keyframes breathe {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+@keyframes cta-frame {
+  0%, 100% { opacity: 0; }
+  5%, 20%   { opacity: 0.55; }
+  25%       { opacity: 0; }
+}
+
+.animate-cta-frame {
+  animation-name: cta-frame;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  /* Without this, a layer sits at its default opacity:1 (fully opaque, hiding
+     the CTA text) until its animation-delay elapses, instead of starting from
+     the 0% keyframe (opacity:0) immediately. */
+  animation-fill-mode: backwards;
+}
+
+.animate-pulse-ring {
+  position: relative;
+}
+.animate-pulse-ring::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  border: 2px solid var(--color-urgent, #F47721);
+  animation: pulse-ring 2s cubic-bezier(0.36, 0.11, 0.89, 0.32) infinite;
+  pointer-events: none;
+}
+.animate-breathe {
+  animation: breathe 3s ease-in-out infinite;
 }
